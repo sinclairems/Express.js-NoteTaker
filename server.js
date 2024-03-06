@@ -14,31 +14,20 @@
 // BASIC Server Syntax -- Tutorial: Express JS Crash Course by Traversy Media
 const express = require('express');
 const path = require('path');
-const notes = require('./db/db.json');
-const moment = require('moment');
-const fs = require('fs');
+const logger = require('./middleware/logger');
 
 // Init express
 const app = express();
 
-// This isn't actually hooked up to anything, tutorial used postman to test, I will use insomnia or heroku
-const logger = (req, res, next) => {
-    console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}: ${moment().format()}`);
-    next();
-}
-
-// Init Middleware
+// Init Middleware -- not currently functional 
 app.use(logger);
-
-// This isn't fully functional yet...have a feeling it has something to do with the path
-app.get('/api/notes', (req, res) => {
-    res.json(notes);
-});
 
 const PORT = process.env.PORT || 3001;
 
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/db/routes', (require = './db/routes'));
 
 // Listen on a port
 app.listen(3001, () => console.log(`Server started on port ${PORT}`));
