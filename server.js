@@ -19,8 +19,8 @@ const logger = require('./middleware/logger');
 // Init express
 const app = express();
 
-// Init Middleware -- not currently functional 
-app.use(logger);
+// // Init Middleware -- not currently functional 
+// app.use(logger);
 
 const PORT = process.env.PORT || 3001;
 
@@ -31,3 +31,21 @@ app.use('/db/routes', (require = './db/routes'));
 
 // Listen on a port
 app.listen(3001, () => console.log(`Server started on port ${PORT}`));
+
+
+
+// error message:
+// C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\router\index.js:458
+      // throw new TypeError('Router.use() requires a middleware function but got a ' + gettype(fn))
+
+// TypeError: Router.use() requires a middleware function but got a string
+//     at Function.use (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\router\index.js:458:13) 
+//     at Function.<anonymous> (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\application.js:220:21)
+//     at Array.forEach (<anonymous>)
+//     at Function.use (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\application.js:217:7)   
+//     at Object.<anonymous> (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\server.js:30:5)
+//     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+//     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+//     at Module.load (node:internal/modules/cjs/loader:1207:32)
+//     at Module._load (node:internal/modules/cjs/loader:1023:12)
+//     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12)
