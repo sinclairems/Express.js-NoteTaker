@@ -10,40 +10,42 @@
 // In order to delete a note, you'll need to read all notes from the db.json file, remove the note 
 // with the given id property, and then rewrite the notes to the db.json file.
 
-// const express = require('express');
-// const notes = require('./db.json');
 
-// const PORT = 3001;
+// BASIC Server Syntax -- Tutorial: Express JS Crash Course by Traversy Media
+const express = require('express');
+const path = require('path');
+const logger = require('./middleware/logger');
 
-// const app = express();
+// Init express
+const app = express();
 
-// // GET route to get all of the terms
-// app.get('/api/notes', (req, res) => res.json(notes));
+// // Init Middleware -- not currently functional 
+// app.use(logger);
 
-// // GET route that returns any specific term
-// app.get('/api/notes/:note', (req, res) => {
-//   // Coerce the specific search term to lowercase
-//   const requestedTerm = req.params.term.toLowerCase();
+const PORT = process.env.PORT || 3001;
 
-//   // Iterate through the terms name to check if it matches `req.params.term`
-//   for (let i = 0; i < notes.length; i++) {
-//     if (requestedTerm === notes[i].term.toLowerCase()) {
-//       return res.json(notes[i]);
-//     }
-//   }
+//Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
-//   // Return a message if the term doesn't exist in our DB
-//   return res.json('No match found');
-// });
+app.use('/db/routes', (require = './db/routes'));
 
-// // Fallback route for when a user attempts to visit routes that don't exist
-// app.get('*', (req, res) =>
-//   res.send(
-//     `Make a GET request using Insomnia to <a href="http://localhost:${PORT}/api/terms">http://localhost:${PORT}/api/terms</a>`
-//   )
-// );
+// Listen on a port
+app.listen(3001, () => console.log(`Server started on port ${PORT}`));
 
-// // Listen for connections
-// app.listen(PORT, () =>
-//   console.info(`Example app listening at http://localhost:${PORT}`)
-// );
+
+
+// error message:
+// C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\router\index.js:458
+      // throw new TypeError('Router.use() requires a middleware function but got a ' + gettype(fn))
+
+// TypeError: Router.use() requires a middleware function but got a string
+//     at Function.use (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\router\index.js:458:13) 
+//     at Function.<anonymous> (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\application.js:220:21)
+//     at Array.forEach (<anonymous>)
+//     at Function.use (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\application.js:217:7)   
+//     at Object.<anonymous> (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\server.js:30:5)
+//     at Module._compile (node:internal/modules/cjs/loader:1376:14)
+//     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
+//     at Module.load (node:internal/modules/cjs/loader:1207:32)
+//     at Module._load (node:internal/modules/cjs/loader:1023:12)
+//     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12)
