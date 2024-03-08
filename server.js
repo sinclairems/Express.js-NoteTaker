@@ -27,6 +27,7 @@ const PORT = process.env.PORT || 3001;
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Notes API Routes 
 app.use('/db/routes', (require = './db/routes'));
 
 // Listen on a port
