@@ -32,7 +32,8 @@ router.post('/', (req, res) => {
       msg: 'Please include a title and text'});
   } 
   notes.push(newNote);
-  res.json(notes);
+  //res.json(notes); // returns json format
+  res.redirect('/notes'); // returns html format
 });
 
 // Update Note
