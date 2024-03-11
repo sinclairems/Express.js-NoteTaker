@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-// This isn't actually hooked up to anything, tutorial used postman to test, I will use insomnia or heroku
+// Create a middleware function
 const logger = (req, res, next) => {
     console.log(`${req.protocol}://${req.get('host')}${req.originalUrl}: ${moment().format()}`);
     next();

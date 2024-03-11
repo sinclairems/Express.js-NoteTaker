@@ -19,21 +19,24 @@ const logger = require('./middleware/logger');
 // Init express
 const app = express();
 
-// // Init Middleware -- not currently functional 
+// // Init Middleware 
 // app.use(logger);
 
-const PORT = process.env.PORT || 3001;
+// Body Parser Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 //Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Notes API Routes 
-app.use('/db/routes', (require = './db/routes'));
+// Notes API Routes -- MAYBE SOMETHING OFF HERE
+app.use('/api/routes', (require = './routes/api/routes'));
 
 // Listen on a port
-app.listen(3001, () => console.log(`Server started on port ${PORT}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-
+module.exports = app;
 
 // error message:
 // C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\router\index.js:458
