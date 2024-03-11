@@ -14,6 +14,7 @@
 // BASIC Server Syntax -- Tutorial: Express JS Crash Course by Traversy Media
 const express = require('express');
 const path = require('path');
+const exphbs = require('express-handlebars');
 const logger = require('./middleware/logger');
 
 // Init express
@@ -21,6 +22,9 @@ const app = express();
 
 // // Init Middleware 
 // app.use(logger);
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
 
 // Body Parser Middleware
 app.use(express.json());
@@ -36,7 +40,6 @@ app.use('/api/routes', (require = './routes/api/routes'));
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
-module.exports = app;
 
 // error message:
 // C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\router\index.js:458

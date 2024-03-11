@@ -14,7 +14,8 @@ router.get('/:id', (req, res) => {
   if(found) {
     res.json(notes.filter(note => note.id === parseInt(req.params.id)));
   } else {
-    res.status(400).json({ msg: `No note with id of ${req.params.id}`});
+    res.status(400).json({ 
+      msg: `No note with id of ${req.params.id}`});
   }
 });
 
@@ -27,7 +28,8 @@ router.post('/', (req, res) => {
     created: new Date()
   }
   if(!newNote.title || !newNote.text) {
-    return res.status(400).json({ msg: 'Please include a title and text'});
+    return res.status(400).json({ 
+      msg: 'Please include a title and text'});
   } 
   notes.push(newNote);
   res.json(notes);
@@ -49,7 +51,22 @@ router.get('/:id', (req, res) => {
     });
     res.json(notes.filter(note => note.id === parseInt(req.params.id)));
   } else {
-    res.status(400).json({ msg: `No note with id of ${req.params.id}`});
+    res.status(400).json({ 
+      msg: `No note with id of ${req.params.id}`});
+  }
+});
+
+// Delete Note
+router.delete('/:id', (req, res) => {
+  const found = notes.some(note => note.id === parseInt(req.params.id));
+
+  if(found) {
+    res.json({ 
+      msg: 'Note deleted', 
+      notes: notes.filter(note => note.id !== parseInt(req.params.id))});
+  } else {
+    res.status(400).json({ 
+      msg: `No note with id of ${req.params.id}`});
   }
 });
 
