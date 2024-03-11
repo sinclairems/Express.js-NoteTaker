@@ -14,7 +14,6 @@
 // BASIC Server Syntax -- Tutorial: Express JS Crash Course by Traversy Media
 const express = require('express');
 const path = require('path');
-const exphbs = require('express-handlebars');
 const logger = require('./middleware/logger');
 
 // Init express
@@ -22,9 +21,6 @@ const app = express();
 
 // // Init Middleware 
 // app.use(logger);
-
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
 
 // Body Parser Middleware
 app.use(express.json());
