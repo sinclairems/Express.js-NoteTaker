@@ -13,46 +13,28 @@
 
 // BASIC Server Syntax -- Tutorial: Express JS Crash Course by Traversy Media
 const express = require('express');
-const path = require('path');
-const exphbs = require('express-handlebars');
 const logger = require('./middleware/logger');
+const apiRoutes = require('./routes/apiRoutes')
+const htmlRoute = require('./routes/htmlRoute')
 
 // Init express
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 // // Init Middleware 
 // app.use(logger);
 
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
-
 // Body Parser Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 //Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 // Notes API Routes -- MAYBE SOMETHING OFF HERE
-app.use('/api/routes', (require = './routes/api/routes'));
+app.use('/api', apiRoutes);
+app.use('/', htmlRoute);
 
 // Listen on a port
-const PORT = process.env.PORT || 3001;
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-
-
-// error message:
-// C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\router\index.js:458
-      // throw new TypeError('Router.use() requires a middleware function but got a ' + gettype(fn))
-
-// TypeError: Router.use() requires a middleware function but got a string
-//     at Function.use (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\router\index.js:458:13) 
-//     at Function.<anonymous> (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\application.js:220:21)
-//     at Array.forEach (<anonymous>)
-//     at Function.use (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\node_modules\express\lib\application.js:217:7)   
-//     at Object.<anonymous> (C:\Users\sincl\bootcamp\challenges\Express.js-NoteTaker\server.js:30:5)
-//     at Module._compile (node:internal/modules/cjs/loader:1376:14)
-//     at Module._extensions..js (node:internal/modules/cjs/loader:1435:10)
-//     at Module.load (node:internal/modules/cjs/loader:1207:32)
-//     at Module._load (node:internal/modules/cjs/loader:1023:12)
-//     at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:135:12)
