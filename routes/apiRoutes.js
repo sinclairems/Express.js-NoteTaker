@@ -4,7 +4,7 @@ const notes = require('../db/db.json');
 const uuid = require('uuid');
 
 
-// This isn't fully functional yet...have a feeling it has something to do with the path
+// Get All Notes
 router.get('/notes', (req, res) => res.json(notes));
 
 // Get Single Note
