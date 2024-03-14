@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 //Set static folder
 app.use(express.static('public'));
 
-// Notes API Routes -- MAYBE SOMETHING OFF HERE
+// Notes API Routes 
 app.use('/api', apiRoutes);
 app.use('/', htmlRoute);
 
